@@ -1,0 +1,9 @@
+---
+- name: Execute nginx_app_protect role
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  roles:
+  - role: "."
+    tags:
+    - all

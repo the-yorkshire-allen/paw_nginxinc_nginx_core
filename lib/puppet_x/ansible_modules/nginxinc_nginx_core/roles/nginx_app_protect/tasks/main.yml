@@ -1,0 +1,45 @@
+---
+- name: Validate distribution and role variables
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/common/validate/validate.yml"
+  tags: nginx_app_protect_validate
+
+- name: Set up prerequisites
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/common/prerequisites/prerequisites.yml"
+  when: nginx_app_protect_waf_enable | bool
+        or nginx_app_protect_dos_enable | bool
+  tags: nginx_app_protect_prerequisites
+
+- name: Set up signing keys
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/common/keys/setup-keys.yml"
+  when: nginx_app_protect_waf_enable | bool
+        or nginx_app_protect_dos_enable | bool
+  tags: nginx_app_protect_key
+
+- name: Set up NGINX App Protect license
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/common/install/setup-license.yml"
+  when: nginx_app_protect_setup_license | bool
+  tags: nginx_app_protect_setup_license
+
+- name: "{{ nginx_app_protect_waf_setup | capitalize }} NGINX App Protect WAF"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/waf/install-{{ ansible_facts['os_family'] | lower }}.yml"
+  when: nginx_app_protect_waf_enable | bool
+  tags: nginx_app_protect_install_app_protect_waf
+
+- name: "{{ nginx_app_protect_dos_setup | capitalize }} NGINX App Protect DoS"
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/dos/install-{{ ansible_facts['os_family'] | lower }}.yml"
+  when: nginx_app_protect_dos_enable | bool
+  tags: nginx_app_protect_install_app_protect_dos
+
+- name: Modify NGINX Plus service
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/common/install/service-modification.yml"
+
+- name: Remove NGINX App Protect license
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/common/install/remove-license.yml"
+  when: nginx_app_protect_remove_license | bool
+  tags: nginx_app_protect_remove_license
+
+- name: Configure NGINX App Protect
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/common/config/configure-app-protect.yml"
+  when: nginx_app_protect_security_policy_file_enable | bool
+        or nginx_app_protect_log_policy_file_enable | bool
+  tags: nginx_app_protect_configure

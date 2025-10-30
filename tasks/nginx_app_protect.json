@@ -1,0 +1,156 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Execute the entire Ansible role imperatively",
+  "input_method": "environment",
+  "parameters": {
+    "nginx_app_protect_timeoutstartsec": {
+      "description": "Ansible role variable (default: 180)",
+      "type": "Optional[Integer]"
+    },
+    "nginx_app_protect_timeoutstopsec": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "nginx_app_protect_waf_enable": {
+      "description": "Specify whether or not this role should install the NGINX App Protect WAF product.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_dos_enable": {
+      "description": "Specify whether or not this role should install the NGINX App Protect DoS product.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_waf_setup": {
+      "description": "Default is install.",
+      "type": "Optional[String]"
+    },
+    "nginx_app_protect_dos_setup": {
+      "description": "Default is install.",
+      "type": "Optional[String]"
+    },
+    "nginx_app_protect_use_rhel_subscription_repos": {
+      "description": "Default is false.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_waf_install_signatures": {
+      "description": "Default is true.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_waf_install_threat_campaigns": {
+      "description": "Default is true.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_waf_manage_repo": {
+      "description": "Default is true",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_dos_manage_repo": {
+      "description": "Default is true",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_license": {
+      "description": "Default is the files folder within the NGINX Ansible role.",
+      "type": "Optional[Hash]"
+    },
+    "nginx_app_protect_setup_license": {
+      "description": "Default is true.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_remove_license": {
+      "description": "Default is true.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_start": {
+      "description": "Default is true.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_service_modify": {
+      "description": "Default is commented out.",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_timeoutstopcsec": {
+      "description": "Ansible role variable (default: 180)",
+      "type": "Optional[Integer]"
+    },
+    "nginx_app_protect_security_policy_file_enable": {
+      "description": "Copy local NGINX App Protect security policy to host",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_security_policy_file": {
+      "description": "Ansible role variable (default: [{\"src\"=>\"files/config/security-policy.json\", \"dest\"=>\"/etc/app_protect/conf/security-policy.json\"}])",
+      "type": "Optional[Array]"
+    },
+    "nginx_app_protect_log_policy_file_enable": {
+      "description": "Copy local NGINX App Protect log policy to host",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_log_policy_file": {
+      "description": "Ansible role variable (default: [{\"src\"=>\"files/config/log-policy.json\", \"dest\"=>\"/etc/app_protect/conf/log-policy.json\"}])",
+      "type": "Optional[Array]"
+    },
+    "nginx_app_protect_selinux": {
+      "description": "Set SELinux enforcing for NGINX (CentOS/Red Hat only) - you may need to open ports on your own",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_selinux_enforcing": {
+      "description": "Enable enforcing mode if true.  Permissive if false (audit only, no enforcing) globally (only works with nginx_selinux: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_app_protect_selinux_tempdir": {
+      "description": "Temporary directory to hold selinux modules",
+      "type": "Optional[String]"
+    },
+    "par_tags": {
+      "description": "Array of tags to execute",
+      "type": "Optional[Array[String]]"
+    },
+    "par_skip_tags": {
+      "description": "Array of tags to skip",
+      "type": "Optional[Array[String]]"
+    },
+    "par_start_at_task": {
+      "description": "Task name to start execution from",
+      "type": "Optional[String]"
+    },
+    "par_limit": {
+      "description": "Limit execution to specific hosts pattern",
+      "type": "Optional[String]"
+    },
+    "par_verbose": {
+      "description": "Boolean to enable verbose output",
+      "type": "Optional[Boolean]"
+    },
+    "par_check_mode": {
+      "description": "Boolean to run playbook in check mode",
+      "type": "Optional[Boolean]"
+    },
+    "par_timeout": {
+      "description": "Maximum execution time in seconds",
+      "type": "Optional[Integer]"
+    },
+    "par_user": {
+      "description": "User to run ansible-playbook as",
+      "type": "Optional[String]"
+    },
+    "par_env_vars": {
+      "description": "Hash of environment variables",
+      "type": "Optional[Hash]"
+    }
+  },
+  "implementations": [
+    {
+      "name": "nginx_app_protect.sh",
+      "requirements": [
+        "shell"
+      ],
+      "input_method": "environment"
+    },
+    {
+      "name": "nginx_app_protect.ps1",
+      "requirements": [
+        "powershell"
+      ],
+      "input_method": "environment"
+    }
+  ]
+}

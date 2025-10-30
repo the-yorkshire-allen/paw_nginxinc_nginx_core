@@ -1,0 +1,220 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Execute the entire Ansible role imperatively",
+  "input_method": "environment",
+  "parameters": {
+    "path": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "option": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "nginx_service_timeoutstartsec": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "nginx_service_timeoutstopsec": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "nginx_service_restart": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "nginx_service_restartsec": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "nginx_amplify_enable": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_amplify_api_key": {
+      "description": "",
+      "type": "Optional[String]"
+    },
+    "nginx_bsd_install_packages": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_bsd_update_ports": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_bsd_portinstall_use_packages": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_logrotate_conf_enable": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_logrotate_conf": {
+      "description": "Ansible role variable (default: {\"paths\"=>[\"/var/log/nginx/*.log\"], \"options\"=>[\"daily\", \"missingok\", \"rotate 14\", \"compress\", \"delaycompress\", \"notifempty\", \"create 0644 www-data adm\", \"sharedscripts\"]})",
+      "type": "Optional[Hash]"
+    },
+    "nginx_enable": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_debug_output": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_type": {
+      "description": "Ansible role variable (default: opensource)",
+      "type": "Optional[String]"
+    },
+    "nginx_start": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_setup": {
+      "description": "Ansible role variable (default: install)",
+      "type": "Optional[String]"
+    },
+    "nginx_manage_repo": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_install_from": {
+      "description": "Ansible role variable (default: nginx_repository)",
+      "type": "Optional[String]"
+    },
+    "nginx_install_source_build_tools": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_install_source_pcre": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_install_source_openssl": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_install_source_zlib": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_static_modules": {
+      "description": "Ansible role variable (default: [\"http_ssl_module\"])",
+      "type": "Optional[Array]"
+    },
+    "nginx_branch": {
+      "description": "Ansible role variable (default: mainline)",
+      "type": "Optional[String]"
+    },
+    "nginx_license": {
+      "description": "Ansible role variable (default: {\"certificate\"=>\"license/nginx-repo.crt\", \"key\"=>\"license/nginx-repo.key\"})",
+      "type": "Optional[Hash]"
+    },
+    "nginx_setup_license": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_remove_license": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_install_epel_release": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_modules": {
+      "description": "Ansible role variable (default: [])",
+      "type": "Optional[Array]"
+    },
+    "nginx_selinux": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_selinux_enforcing": {
+      "description": "Ansible role variable (default: true)",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_selinux_tempdir": {
+      "description": "Ansible role variable (default: /tmp)",
+      "type": "Optional[String]"
+    },
+    "nginx_service_modify": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_service_clean": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_service_overridepath": {
+      "description": "Ansible role variable (default: /etc/systemd/system/nginx.service.d)",
+      "type": "Optional[String]"
+    },
+    "nginx_service_overridefilename": {
+      "description": "Ansible role variable (default: override.conf)",
+      "type": "Optional[String]"
+    },
+    "nginx_service_custom": {
+      "description": "",
+      "type": "Optional[Boolean]"
+    },
+    "nginx_service_custom_file": {
+      "description": "Ansible role variable (default: {{ role_path }}/files/services/nginx.override.conf)",
+      "type": "Optional[String]"
+    },
+    "par_tags": {
+      "description": "Array of tags to execute",
+      "type": "Optional[Array[String]]"
+    },
+    "par_skip_tags": {
+      "description": "Array of tags to skip",
+      "type": "Optional[Array[String]]"
+    },
+    "par_start_at_task": {
+      "description": "Task name to start execution from",
+      "type": "Optional[String]"
+    },
+    "par_limit": {
+      "description": "Limit execution to specific hosts pattern",
+      "type": "Optional[String]"
+    },
+    "par_verbose": {
+      "description": "Boolean to enable verbose output",
+      "type": "Optional[Boolean]"
+    },
+    "par_check_mode": {
+      "description": "Boolean to run playbook in check mode",
+      "type": "Optional[Boolean]"
+    },
+    "par_timeout": {
+      "description": "Maximum execution time in seconds",
+      "type": "Optional[Integer]"
+    },
+    "par_user": {
+      "description": "User to run ansible-playbook as",
+      "type": "Optional[String]"
+    },
+    "par_env_vars": {
+      "description": "Hash of environment variables",
+      "type": "Optional[Hash]"
+    }
+  },
+  "implementations": [
+    {
+      "name": "nginx.sh",
+      "requirements": [
+        "shell"
+      ],
+      "input_method": "environment"
+    },
+    {
+      "name": "nginx.ps1",
+      "requirements": [
+        "powershell"
+      ],
+      "input_method": "environment"
+    }
+  ]
+}

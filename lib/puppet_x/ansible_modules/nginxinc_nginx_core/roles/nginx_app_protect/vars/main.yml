@@ -1,0 +1,105 @@
+---
+# Set the values allowed for various variables
+nginx_app_protect_setup_vars: [install, uninstall, upgrade]
+
+# Determine the current value of 'nginx_app_protect_*_state'
+nginx_app_protect_state_vals:
+  install: present
+  uninstall: absent
+  upgrade: latest
+
+nginx_app_protect_waf_default_setup: install
+nginx_app_protect_waf_state: "{{ nginx_app_protect_state_vals[nginx_app_protect_waf_setup] | default(nginx_app_protect_state_vals[nginx_app_protect_waf_default_setup]) }}"
+
+nginx_app_protect_dos_default_setup: install
+nginx_app_protect_dos_state: "{{ nginx_app_protect_state_vals[nginx_app_protect_dos_setup] | default(nginx_app_protect_state_vals[nginx_app_protect_dos_default_setup]) }}"
+
+# Supported NGINX App Protect WAF distributions
+nginx_app_protect_waf_distributions:
+  amazon:
+    name: Amazon Linux
+    versions: [2]
+    architectures: [x86_64]
+  centos:
+    name: CentOS
+    versions: [7]
+    architectures: [x86_64]
+  debian:
+    name: Debian
+    versions: [11]
+    architectures: [x86_64]
+  oraclelinux:
+    name: Oracle Linux
+    versions: [8]
+    architectures: [x86_64]
+  redhat:
+    name: Red Hat Enterprise Linux
+    versions: [7, 8]
+    architectures: [x86_64]
+  ubuntu:
+    name: Ubuntu
+    versions: [18.04, 20.04]
+    architectures: [x86_64]
+
+# Supported NGINX App Protect DoS distributions
+nginx_app_protect_dos_distributions:
+  alpine:
+    name: Alpine Linux
+    versions: [3.15]
+    architectures: [x86_64]
+  centos:
+    name: CentOS
+    versions: [7]
+    architectures: [x86_64]
+  debian:
+    name: Debian
+    versions: [11]
+    architectures: [x86_64]
+  redhat:
+    name: Red Hat Enterprise Linux
+    versions: [7, 8]
+    architectures: [x86_64]
+  ubuntu:
+    name: Ubuntu
+    versions: [18.04, 20.04]
+    architectures: [x86_64]
+
+# Alpine Linux dependencies
+nginx_app_protect_alpine_dependencies: [boost, ca-certificates, coreutils, libelf, openssl, pcre2, zeromq]
+
+# Amazon Linux 2 extras
+nginx_app_protect_amazon_extras: [selinux-ng]
+
+# Debian dependencies
+nginx_app_protect_debian_dependencies: [apt-transport-https, ca-certificates]
+
+# Red Hat dependencies
+nginx_app_protect_redhat_dependencies: [ca-certificates, "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ((ansible_facts['distribution'] == 'Amazon') | ternary('7', ansible_facts['distribution_major_version'])) }}.noarch.rpm"]
+
+# Choose where to fetch the NGINX App Protect and Security Updates signing keys from.
+# Default settings are the official NGINX signing key hosts.
+nginx_app_protect_default_signing_key_pgp: https://nginx.org/keys/nginx_signing.key
+nginx_app_protect_default_signing_key_rsa_pub: https://nginx.org/keys/nginx_signing.rsa.pub
+nginx_app_protect_waf_security_updates_default_signing_key_pgp: https://cs.nginx.com/static/keys/app-protect-security-updates.key
+nginx_app_protect_waf_security_updates_default_signing_key_rsa_pub: https://cs.nginx.com/static/keys/app-protect-security-updates.rsa.pub
+
+# Default NGINX Plus repositories
+nginx_plus_default_repository_alpine: https://pkgs.nginx.com/plus/alpine/v{{ ansible_facts['distribution_version'] | regex_search('^[0-9]+\.[0-9]+') }}/main
+nginx_plus_default_repository_amazon: https://pkgs.nginx.com/plus/amzn{{ (ansible_facts['distribution_major_version'] is version('2', '==')) | ternary('2', '') }}/$releasever/$basearch
+nginx_plus_default_repository_debian: deb [arch=amd64 signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://pkgs.nginx.com/plus/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] }} nginx-plus
+nginx_plus_default_repository_redhat: https://pkgs.nginx.com/plus/centos/{{ ansible_facts['distribution_major_version'] }}/$basearch/
+
+# Default NGINX App Protect WAF repositories
+nginx_app_protect_waf_default_repository_amazon: https://pkgs.nginx.com/app-protect/centos/7/$basearch/
+nginx_app_protect_waf_default_repository_debian: deb [arch=amd64 signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://pkgs.nginx.com/app-protect/{{ ansible_facts['distribution'] | lower }} {{ ansible_distribution_release }} nginx-plus
+nginx_app_protect_waf_default_repository_redhat: https://pkgs.nginx.com/app-protect/centos/{{ ansible_facts['distribution_major_version'] }}/$basearch/
+
+# Default NGINX App Protect WAF Security Updates repositories
+nginx_app_protect_waf_security_updates_default_repository_amazon: https://pkgs.nginx.com/app-protect-security-updates/centos/7/$basearch/
+nginx_app_protect_waf_security_updates_default_repository_debian: deb [arch=amd64 signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://pkgs.nginx.com/app-protect-security-updates/{{ ansible_facts['distribution'] | lower }} {{ ansible_distribution_release }} nginx-plus
+nginx_app_protect_waf_security_updates_default_repository_redhat: https://pkgs.nginx.com/app-protect-security-updates/centos/{{ ansible_facts['distribution_major_version'] }}/$basearch/
+
+# Default NGINX App Protect DoS repositories
+nginx_app_protect_dos_default_repository_alpine: https://pkgs.nginx.com/app-protect-dos/alpine/v{{ ansible_facts['distribution_version'] | regex_search('^[0-9]+\.[0-9]+') }}/main
+nginx_app_protect_dos_default_repository_debian: deb [arch=amd64 signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://pkgs.nginx.com/app-protect-dos/{{ ansible_facts['distribution'] | lower }} {{ ansible_distribution_release }} nginx-plus
+nginx_app_protect_dos_default_repository_redhat: https://pkgs.nginx.com/app-protect-dos/centos/{{ ansible_facts['distribution_major_version'] }}/$basearch/
